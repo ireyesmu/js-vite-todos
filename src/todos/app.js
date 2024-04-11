@@ -29,12 +29,10 @@ export const App = ( elementId ) => {
 
     // Referencias HTML
     const newDescriptionInput = document.querySelector( ElementIDs.NewTodoInput );
+    const todoListUL = document.querySelector( ElementIDs.TodoList );
 
-
-    // Listeners
+    // ========= Listeners =========
     newDescriptionInput.addEventListener('keyup', ( event ) => {
-        console.log(event);
-        console.log(event.target.value);
 
         // Validaciones de input
         if ( event.key !== 'Enter' ) return;
@@ -45,4 +43,23 @@ export const App = ( elementId ) => {
         event.target.value = '';
     });
 
+    
+    todoListUL.addEventListener('click', ( event ) => {
+        const element = event.target.closest('[data-id]');
+        // console.log( event.target );
+
+        // Togglear un Todo
+        if ( event.target.getAttribute('type') == 'checkbox' ) {
+            todoStore.toggleTodo( element.getAttribute('data-id') );
+        }
+        
+        // Eliminar un Todo
+        if ( event.target.getAttribute('class') == 'destroy' ) {
+            todoStore.deleteTodo( element.getAttribute('data-id') );
+        }
+
+        displayTodos();
+    });
+
+    
 }
