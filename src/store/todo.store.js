@@ -13,8 +13,10 @@ const state = {
         new Todo('Piedra del alma'),
         new Todo('Piedra del infinito'),
         new Todo('Piedra del tiempo'),
+        new Todo('Piedra del poder'),
+        new Todo('Piedra de la realidad'),
     ],
-    filter: Filters.All,
+    filter: Filters.all,
 }
 
 
@@ -51,7 +53,7 @@ const getTodos = ( filter = Filters.all ) => {
  */
 const addTodo = ( description ) => {
     if ( !description ) throw new Error('Description is required');
-    state.todos.push( new Todo(description));
+    state.todos.push( new Todo(description) );
 }
 
 /**
@@ -59,7 +61,13 @@ const addTodo = ( description ) => {
  * @param {String} todoId 
  */
 const toggleTodo = ( todoId ) => {
-    throw new Error('Not implemented');
+    // El siguiente método no es el más eficiente, pues mapea todo el arreglo states
+    state.todos = state.todos.map( todo => {
+        if ( todo.id === todoId ) {
+            todo.done = !todo.done;
+        }
+        return todo;
+    })
 }
 
 /**
