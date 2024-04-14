@@ -1,7 +1,7 @@
 import { Todo } from "../todos/models/todo.model";
 
 
-const Filters = {
+export const Filters = {
     all: 'all',
     completed: 'completed',
     pending: 'pending',
@@ -25,7 +25,9 @@ const initStore = () => {
     console.log('InitStore 🥑');
 }
 
-
+/**
+ * 
+ */
 const loadStore = () => {
     if ( !localStorage.getItem('state') ) return;
 
@@ -96,7 +98,7 @@ const deleteTodo = ( todoId ) => {
 }
 
 const deleteCompleted = () => {
-    state.todos = state.todos.filter( todo => todo.done );
+    state.todos = state.todos.filter( todo => !todo.done );
 
     saveStateToLocalStorage();
 }
